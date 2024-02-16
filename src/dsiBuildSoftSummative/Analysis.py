@@ -21,16 +21,16 @@ class Analysis():
         config = {}
         # load each config file and update the config dictionary
         for path in paths:
-            with open(path, 'r') as f:
-                try:        
+            try:
+                with open(path, 'r') as f:
                     this_config = yaml.safe_load(f)
                     config.update(this_config)   
-                except FileNotFoundError as e:
-                    e.add_note(f'The file {path} cannot be found')
-                    raise e
-                except Exception as e:
-                    e.add_note(f'Error while loading configuration files')
-                    raise e             
+            except FileNotFoundError as e:    
+                e.add_note(f'The file {path} cannot be found')
+                raise e
+            except Exception as e:
+                e.add_note(f'Error while loading configuration files')
+                raise e             
         self.config = config
 
         # Init logging
