@@ -38,7 +38,7 @@ class Analysis():
             logging_level = logging.DEBUG if config['verbose_log'] else logging.WARNING
             # Initialize logging module
             now = datetime.datetime.now()
-            logFileName = f'{self.INIT_LOG_FILE_NAME_PREFIX}_{now.strftime("%Y%m%d%H%M%S")}.log'
+            logFileName = f'{self.INIT_LOG_FILE_NAME_PREFIX}_{now.strftime("%Y_%m_%d_%H%M")}.log'
             logging.basicConfig(
                 level=logging_level,
                 handlers=[logging.StreamHandler(),
