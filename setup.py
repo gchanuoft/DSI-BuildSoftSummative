@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name = 'DSI-BuildSoftSummative',
+    name = 'dsi_buildsoftsummative',
     version = '0.0.1',
     author = 'Ka Ho (Gerald) Chan',
     description = 'Building Robust Software Summative Assignment',
