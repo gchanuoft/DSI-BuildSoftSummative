@@ -17,4 +17,4 @@ classifiers = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/Analysis"]
+packages = ["src/dsiBuildSoftSummative"]
