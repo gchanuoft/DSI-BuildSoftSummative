@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "mymodule"
+name = "dsiBuildSoftSummative"
 authors = [
     {name = "Ka Ho (Gerald) Chan"},
 ]
@@ -15,3 +15,4 @@ readme = "README.md"
 classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
 ]
+packages = ["Analysis"]
