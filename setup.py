@@ -1,8 +1,8 @@
 from setuptools import setup
 
 setup(
-    name = 'dsi_buildsoftsummative',
-    version = '0.0.2',
+    name = 'dsiBuildSoftSummative',
+    version = '0.0.3',
     author = 'Ka Ho (Gerald) Chan',
     description = 'Building Robust Software Summative Assignment',
     license = 'GNU GENERAL PUBLIC LICENSE Version 3',
