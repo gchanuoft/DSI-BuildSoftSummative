@@ -13,5 +13,5 @@ dependencies = ["matplotlib", "numpy"]
 requires-python = ">=3.10.0"
 readme = "README.md"
 classifiers = [
-    "License :: OSI Approved :: GNU License",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
 ]
