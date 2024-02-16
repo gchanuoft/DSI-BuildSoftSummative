@@ -3,7 +3,7 @@
 Building Robust Software Summative Assignment
 
 ## Prerequisite: 
-[Foundational Skills I: 5 weeks on bording steps](https://github.com/UofT-DSI/Onboarding/tree/main/environment_setup)
+[UofT-DSI onboarding steps](https://github.com/UofT-DSI/Onboarding/tree/main/environment_setup)
 
 ## Demo
 
