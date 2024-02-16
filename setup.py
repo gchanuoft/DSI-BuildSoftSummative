@@ -6,5 +6,5 @@ setup(
     author = 'Ka Ho (Gerald) Chan',
     description = 'Building Robust Software Summative Assignment',
     license = 'GNU GENERAL PUBLIC LICENSE Version 3',
-    packages=['Analysis']
+    packages=['dsiBuildSoftSummative']
 )
