@@ -28,10 +28,10 @@ class Analysis():
                     this_config = yaml.safe_load(f)
                     config.update(this_config)   
             except FileNotFoundError as e:    
-                e.add_note(f'The file {path} cannot be found')
+                e.add_note(f'{self._timeStamp()} The file {path} cannot be found')
                 raise e
             except Exception as e:
-                e.add_note(f'Error while loading configuration files')
+                e.add_note(f'{self._timeStamp()} Error while loading configuration files')
                 raise e             
         self.config = config
 
@@ -46,21 +46,45 @@ class Analysis():
                 handlers=[logging.StreamHandler(),
                           logging.FileHandler(logFileName)])
         except Exception as e:
-            e.add_note(f'Error initializing log file')
+            e.add_note(f'{self._timeStamp()} Error initializing log file')
             raise e   
 
     def load_data(self) -> None:
+        logging.debug(f'{self._timeStamp()} Starting loading data from Data API: {self.DATA_URL}')
         try:
             self.rawData = requests.get(url=f'{self.DATA_URL}?api_key={self.config['api_key']}')
         except Exception as e:
-            e.add_note(f'Error Loading Data from API {self.DATA_URL}')
+            logging.error(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
+            e.add_note(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
             raise e   
+        logging.debug(f'{self._timeStamp()} Done loading data from Data API: {self.DATA_URL}')
 
     def compute_analysis(self) -> Any:
-        pass
+        logging.debug(f'{self._timeStamp()} Starting compute_analysis()')
+        start = datetime.datetime.now()
+        logging.info(f'{self._timeStamp()} Analysis Start time {start.timestamp()}')
+        end = datetime.datetime.now()
+        logging.info(f'{self._timeStamp()} Analysis end time {end.timestamp()}')
+        self.notify_done(f'Analysis done start:{start.strftime("%Y %m %d, %H:%M:%S")} end:{end.strftime("%Y %m %d, %H:%M:%S")}')
+        logging.info(f'{self._timeStamp()} Analysis End time')
+        logging.debug(f'{self._timeStamp()} Done compute_analysis()')
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
-        pass
+        logging.debug(f'{self._timeStamp()} Starting saving plot: {save_path}')
+        logging.debug(f'{self._timeStamp()} Done saving plot: {save_path}')
 
     def notify_done(self, message: str) -> None:
-        pass
+        logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
+        try:
+            requests.post("https://ntfy.sh/mytopic",
+                          data=message.encode(encoding='utf-8'))
+        except Exception as e:
+            logging.error(f'{self._timeStamp()} Error calling ntfy')
+            e.add_note(f'{self._timeStamp()} Error calling ntfy')
+            raise e   
+        logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
+
+    def _timeStamp() -> str:
+        now = datetime.datetime.now()
+        return now.strftime("%Y %m %d, %H:%M:%S")
+        
