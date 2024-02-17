@@ -5,7 +5,8 @@ plot_config:
   title: Summary of NASA studies categlories
   xlabel: NASA Studies Categories
   ylabel: Number of Studies
-  size: 1
+  sizeH: 2
+  sizeW: 4
 output_paths: ['my_plot', 'figure']
 verbose_log: FALSE
 

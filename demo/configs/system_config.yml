@@ -5,6 +5,7 @@ plot_config:
   title: Summary of Categories
   xlabel: Categories
   ylabel: Total
-  size: 1
+  sizeH: 2
+  sizeW: 4
 output_paths: ['figure']
 verbose_log: FALSE

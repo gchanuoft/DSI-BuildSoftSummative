@@ -23,7 +23,8 @@ class Analysis():
     plotTitle = None
     plotXLabel = None
     plotYLabel = None
-    plotSize = None
+    plotSizeH = None
+    plotSizeW = None
     outputPaths = None
     
     def __init__(self, analysis_config: str) -> None:
@@ -98,7 +99,8 @@ class Analysis():
         self.plotTitle = config['plot_config']['title']
         self.plotXLabel = config['plot_config']['xlabel']
         self.plotYLabel = config['plot_config']['ylabel']
-        self.plotSize = config['plot_config']['size']
+        self.plotSizeH = config['plot_config']['sizeH']
+        self.plotSizeW = config['plot_config']['sizeW']
         self.outputPaths = config['output_paths']
         logging.info(f'{self._timeStamp()} Plots will be save to: {self.outputPaths}')
         
@@ -179,7 +181,7 @@ class Analysis():
             ax.text(i, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], ha = 'center')
 
         fig.autofmt_xdate(rotation=45)
-        fig.set_size_inches(self.plotSize)
+        fig.set_size_inches(self.plotSizeW, self.plotSizeH)
         fig.set_edgecolor(self.plotColor)
         for path in plotOutputpaths:
             try:
