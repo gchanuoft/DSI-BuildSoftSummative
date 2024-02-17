@@ -1,4 +1,3 @@
-api_key: DEMO_KEY
 output_paths: ['my_plot', 'figure']
 verbose_log: FALSE
 

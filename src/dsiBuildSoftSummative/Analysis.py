@@ -67,10 +67,8 @@ class Analysis():
         for path in paths:
             try:
                 with open(path, 'r') as f:
-                    this_config = yaml.safe_load(f)
-                    print(f'before {path}: {config}')
+                    this_config = yaml.safe_load(f)                    
                     config.update(this_config)   
-                    print(f'After {path}: {config}')
             except FileNotFoundError as e:    
                 e.add_note(f'{self._timeStamp()} The file {path} cannot be found')
                 raise e
@@ -94,7 +92,6 @@ class Analysis():
         
         # Only take the config values we want
         logging.info(f'{self._timeStamp()} Analysis init() config values')
-        logging.info(f'{self._timeStamp()} Analysis init() config values {config}')
         self.apiKey = config['api_key']
         self.ntfyTopic = config['ntfyTopic']
         logging.info(f'{self._timeStamp()} Notification will be sent to: {self.NTFY_URL}{self.ntfyTopic}')
