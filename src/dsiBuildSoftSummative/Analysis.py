@@ -170,7 +170,7 @@ class Analysis():
         ax.set_ylabel(self.plotYLabel)
         ax.set_axisbelow(True)
         ax.grid(alpha=0.3)
-        subCat = ax.bar(self.studiesBySubCat.index, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'])
+        subCat = ax.bar(self.studiesBySubCat.index, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'], color=self.plotColor)
     
         ax.legend([subCat],
                   ['Sub Categories'],
@@ -182,7 +182,6 @@ class Analysis():
 
         fig.autofmt_xdate(rotation=45)
         fig.set_size_inches(self.plotSizeW, self.plotSizeH)
-        fig.set_edgecolor(self.plotColor)
         for path in plotOutputpaths:
             try:
                 fullFileName = f'{path}/{self.OUT_PUT_FILE_NAME}'
