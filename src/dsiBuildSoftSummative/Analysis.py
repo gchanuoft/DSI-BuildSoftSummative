@@ -76,7 +76,7 @@ class Analysis():
     def notify_done(self, message: str) -> None:
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
         try:
-            requests.post("https://ntfy.sh/mytopic",
+            requests.post("https://ntfy.sh/dsiBuildSoftSummative",
                           data=message.encode(encoding='utf-8'))
         except Exception as e:
             logging.error(f'{self._timeStamp()} Error calling ntfy')
