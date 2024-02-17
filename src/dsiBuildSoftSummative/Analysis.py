@@ -179,8 +179,8 @@ class Analysis():
             ax.text(i, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], ha = 'center')
 
         fig.autofmt_xdate(rotation=45)
-        fig.set_size_inches(self.plotSizes)
-        fig.set_edgecolor(self.plotColorcolor)
+        fig.set_size_inches(self.plotSize)
+        fig.set_edgecolor(self.plotColor)
         for path in plotOutputpaths:
             try:
                 fullFileName = f'{path}/{self.OUT_PUT_FILE_NAME}'
