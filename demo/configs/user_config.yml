@@ -6,5 +6,5 @@ plot_config:
   xlabel: Studies Categories Categories
   ylabel: Total Count
   size: 1
-output_paths: ['plot']s
+output_paths: ['plot']
 verbose_log: FALSE

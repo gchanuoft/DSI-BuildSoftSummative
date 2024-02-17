@@ -8,3 +8,4 @@ plot_config:
   size: 1
 output_paths: ['my_plot', 'figure']
 verbose_log: FALSE
+
