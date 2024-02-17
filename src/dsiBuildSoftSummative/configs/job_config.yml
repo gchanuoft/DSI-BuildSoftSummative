@@ -1,0 +1,10 @@
+plot_config:
+  color: orange
+  title: Summary of NASA Subcategories
+  xlabel: Subcategories
+  ylabel: Total Number of Studies
+  sizeH: 5
+  sizeW: 6
+output_paths: ['test']
+verbose_log: FALSE
+
