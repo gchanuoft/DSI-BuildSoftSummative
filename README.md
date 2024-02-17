@@ -23,5 +23,7 @@ A **demo** folder is located within the package source code with sample configur
 ## Running Unit Tests:
   1. Clone the repository\
   ```git clone https://github.com/gchanuoft/dsiBuildSoftSummative.git```
-  2. In the **dsiBuildSoftSummative** folder  
+  2. Install pytest
+  ```pip install pytest```
+  3. In the **dsiBuildSoftSummative** folder  
   ```pytest -v```
