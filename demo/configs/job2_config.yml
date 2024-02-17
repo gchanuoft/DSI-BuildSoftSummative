@@ -1,10 +1,9 @@
 plot_config:
-  color: orange
-  title: Summary of NASA Subcategories 
+  color: purple
+  title: Summary of NASA Subcategories (Job 2)
   xlabel: Subcategories
   ylabel: Total Number of Studies
   sizeH: 5
   sizeW: 6
 output_paths: ['my_plot', 'plot', 'figure']
 verbose_log: FALSE
-
