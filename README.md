@@ -20,7 +20,7 @@ A **demo** folder is located within the package source code with sample configur
   4. Install the package\
   ```pip install git+https://github.com/gchanuoft/dsiBuildSoftSummative```
 
-## Running unit test:
+## Running Unit Tests:
   1. Clone the repository\
   ```git clone https://github.com/gchanuoft/dsiBuildSoftSummative.git```
   2. In the **dsiBuildSoftSummative** folder  
