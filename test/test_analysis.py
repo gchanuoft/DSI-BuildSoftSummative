@@ -10,7 +10,7 @@ def test_does_not_exist_job_config_init():
     with raises(FileNotFoundError):
         analysis_obj = Analysis.Analysis('doesNotExist.yml')
 
-def test_output_path_not_exist_from_config():
+def test_bad_config_format():
     from dsiBuildSoftSummative import Analysis
     with raises(FileNotFoundError):
         analysis_obj = Analysis.Analysis('configs/bad_config.yml')
