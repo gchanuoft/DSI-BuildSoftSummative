@@ -1,6 +1,4 @@
 api_key: DEMO_KEY
-plot_config:
-  title: Summary of NASA studies categlories
 output_paths: ['my_plot', 'figure']
 verbose_log: FALSE
 

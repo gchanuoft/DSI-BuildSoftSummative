@@ -59,7 +59,7 @@ class Analysis():
         CONFIG_PATHS = ['configs/system_config.yml', 'configs/user_config.yml']
 
         # add the analysis config to the list of paths to load
-        paths = [analysis_config] + CONFIG_PATHS
+        paths = CONFIG_PATHS + [analysis_config]
 
         # initialize empty dictionary to hold the configuration
         config = {}
@@ -68,7 +68,9 @@ class Analysis():
             try:
                 with open(path, 'r') as f:
                     this_config = yaml.safe_load(f)
+                    print(f'before {path}: {config}')
                     config.update(this_config)   
+                    print(f'After {path}: {config}')
             except FileNotFoundError as e:    
                 e.add_note(f'{self._timeStamp()} The file {path} cannot be found')
                 raise e

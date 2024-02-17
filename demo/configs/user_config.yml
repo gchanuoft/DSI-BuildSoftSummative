@@ -1,9 +1,4 @@
 api_key: DEMO_KEY
 ntfyTopic: dsiBuildSoftSummative
-plot_config:
-  color: blue
-  title: Summary of Studies Categories
-  xlabel: Studies Categories Categories
-  ylabel: Total Count
 output_paths: ['plot']
 verbose_log: FALSE
