@@ -122,6 +122,9 @@ class Analysis():
                   bbox_to_anchor=(1, 1),
                   loc='upper left')
         
+        for i in range(len(self.studiesBySubCat.index)):
+            ax.text(i, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'][i], self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'][i], ha = 'center')
+
         pngFileName = 'stub.png'
 
         logging.info(f'{self._timeStamp()} Creating image file {pngFileName}')
