@@ -12,18 +12,49 @@ class Analysis():
     STUDIY_ID: Final = 201
     INIT_LOG_FILE_NAME_PREFIX: Final = 'dsiBuildSoftSummative'
     DATA_URL: Final = f'https://osdr.nasa.gov/osdr/data/osd/files/{STUDIY_ID}'
+    NTFY_URL: Final = 'https://ntfy.sh/'
     OUT_PUT_FILE_NAME: Final = 'SubCat.png'
     rawJsonData = None
     studiesBySubCat = None
     dataComputed = False
     apiKey = None
+    ntfyTopic = None
+    plotColor = None
     plotTitle = None
     plotXLabel = None
     plotYLabel = None
+    plotSize = None
     outputPaths = None
-    ntfyURL = None
+    
 
     def __init__(self, analysis_config: str) -> None:
+        ''' 
+        Load config into an Analysis object
+
+        Load system-wide configuration from `configs/system_config.yml`, user configuration from
+        `configs/user_config.yml`, and the specified analysis configuration file
+
+        Parameters
+        ----------
+        analysis_config : str
+        Path to the analysis/job-specific configuration file
+
+        Returns
+        -------
+        analysis_obj : Analysis
+        Analysis object containing consolidated parameters from the configuration files
+
+        Notes
+        -----
+        The configuration files should include parameters for:
+        * GitHub API token
+        * ntfy.sh topic
+        * Plot color
+        * Plot title
+        * Plot x and y axis titles
+        * Figure size
+        * Default save path
+        '''
 
         CONFIG_PATHS = ['configs/system_config.yml', 'configs/user_config.yml']
 
@@ -62,13 +93,15 @@ class Analysis():
         # Only take the config values we want
         logging.info(f'{self._timeStamp()} Analysis init() config values')
         self.apiKey = config['api_key']
+        self.ntfyTopic = config['ntfyTopic']
+        logging.info(f'{self._timeStamp()} Notification will be sent to: {self.ntfyURL}')
+        self.plotColor = config['plot_config']['color']
         self.plotTitle = config['plot_config']['title']
         self.plotXLabel = config['plot_config']['xlabel']
         self.plotYLabel = config['plot_config']['ylabel']
+        self.plotSize = config['plot_config']['size']
         self.outputPaths = config['output_paths']
         logging.info(f'{self._timeStamp()} Plots will be save to: {self.outputPaths}')
-        self.ntfyURL = config['ntfyURL']
-        logging.info(f'{self._timeStamp()} Notification will be sent to: {self.ntfyURL}')
         
     def load_data(self) -> None:
         logging.debug(f'{self._timeStamp()} Starting loading data from Data API: {self.DATA_URL}')
@@ -147,6 +180,8 @@ class Analysis():
             ax.text(i, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], ha = 'center')
 
         fig.autofmt_xdate(rotation=45)
+        fig.set_size_inches(self.plotSizes)
+        fig.set_edgecolor(self.plotColorcolor)
         for path in plotOutputpaths:
             try:
                 fullFileName = f'{path}/{self.OUT_PUT_FILE_NAME}'
@@ -164,7 +199,7 @@ class Analysis():
         assert self.dataComputed, 'Cannot send done message when data has not been computed'
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
         try:
-            requests.post(self.ntfyURL,
+            requests.post(f'{self.ntfyURL}{self.ntfyTopic}',
                           data=message.encode(encoding='utf-8'))
         except Exception as e:
             logging.error(f'{self._timeStamp()} Error calling ntfy', exc_info=e)
