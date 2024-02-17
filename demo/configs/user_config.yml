@@ -4,4 +4,5 @@ plot_config:
   title: Summary of Studies Categories
   xlabel: Studies Categories Categories
   ylabel: Total Count
-output_path: ['plot']
+output_paths: ['plot']
+ntfy: https://ntfy.sh/dsiBuildSoftSummative
