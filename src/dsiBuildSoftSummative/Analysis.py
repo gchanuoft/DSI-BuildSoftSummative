@@ -11,6 +11,7 @@ class Analysis():
     INIT_LOG_FILE_NAME_PREFIX: Final = 'dsiBuildSoftSummative'
     DATA_URL: Final = 'https://osdr.nasa.gov/osdr/data/osd/files/201'
     rawData = None
+    dataComputed = False
 
     def __init__(self, analysis_config: str) -> None:
 
@@ -60,6 +61,7 @@ class Analysis():
         logging.debug(f'{self._timeStamp()} Done loading data from Data API: {self.DATA_URL}')
 
     def compute_analysis(self) -> Any:
+        assert self.rawData != None, 'Cannot compute analysis when no data is loaded'
         logging.debug(f'{self._timeStamp()} Starting compute_analysis()')
         start = datetime.datetime.now()
         logging.info(f'{self._timeStamp()} Analysis Start time {start.timestamp()}')
@@ -68,12 +70,15 @@ class Analysis():
         self.notify_done(f'Analysis done start:{start.strftime("%Y %m %d, %H:%M:%S")} end:{end.strftime("%Y %m %d, %H:%M:%S")}')
         logging.info(f'{self._timeStamp()} Analysis End time')
         logging.debug(f'{self._timeStamp()} Done compute_analysis()')
+        self.dataComputed = True
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
+        assert self.dataComputed, 'Cannot plot data when data has not been computed'
         logging.debug(f'{self._timeStamp()} Starting saving plot: {save_path}')
         logging.debug(f'{self._timeStamp()} Done saving plot: {save_path}')
 
     def notify_done(self, message: str) -> None:
+        assert self.dataComputed, 'Cannot send done message when data has not been computed'
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
         try:
             requests.post("https://ntfy.sh/dsiBuildSoftSummative",
