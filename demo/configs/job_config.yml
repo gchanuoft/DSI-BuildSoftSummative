@@ -1,5 +1,5 @@
 api_key: DEMO_KEY
-verbose_log: TRUE
+verbose_log: FALSE
 plot_config:
   title: Summary of NASA studies categlories
   xlabel: NASA Studies Categories

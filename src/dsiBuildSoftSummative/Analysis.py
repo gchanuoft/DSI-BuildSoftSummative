@@ -41,7 +41,7 @@ class Analysis():
 
         # Init logging
         try:
-            logging_level = logging.DEBUG if config['verbose_log'] else logging.WARNING
+            logging_level = logging.DEBUG if config['verbose_log'] else logging.INFO
             # Initialize logging module
             now = datetime.datetime.now()
             logFileName = f'{self.INIT_LOG_FILE_NAME_PREFIX}_{now.strftime("%Y_%m_%d_%H%M")}.log'
@@ -115,8 +115,7 @@ class Analysis():
         ax.set_ylabel(self.config['plot_config']['ylabel'])
         ax.set_axisbelow(True)
         ax.grid(alpha=0.3)
-
-        subCat = ax.scatter(self.studiesBySubCat.index, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'])
+        subCat = ax.bar(self.studiesBySubCat.index, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'])
     
         ax.legend([subCat],
                   ['Sub Categories'],
