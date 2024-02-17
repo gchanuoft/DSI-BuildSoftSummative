@@ -37,7 +37,8 @@ def test_bad_config_format():
 
 def test_does_not_exist_output_path():
     from dsiBuildSoftSummative import Analysis
-    analysis_obj = Analysis.Analysis('configs/user_config.yml')
-    analysis_obj.load_data()
-    analysis_output = analysis_obj.compute_analysis()
-    analysis_figure = analysis_obj.plot_data(['doesNotExist.yml'])
+    with raises(FileNotFoundError):
+        analysis_obj = Analysis.Analysis('configs/user_config.yml')
+        analysis_obj.load_data()
+        analysis_output = analysis_obj.compute_analysis()
+        analysis_figure = analysis_obj.plot_data(['doesNotExist.yml'])
