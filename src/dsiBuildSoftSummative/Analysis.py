@@ -67,10 +67,10 @@ class Analysis():
         logging.info(f'{self._timeStamp()} Analysis Start time {start.timestamp()}')
         end = datetime.datetime.now()
         logging.info(f'{self._timeStamp()} Analysis end time {end.timestamp()}')
-        self.notify_done(f'Analysis done start:{start.strftime("%Y %m %d, %H:%M:%S")} end:{end.strftime("%Y %m %d, %H:%M:%S")}')
         logging.info(f'{self._timeStamp()} Analysis End time')
-        logging.debug(f'{self._timeStamp()} Done compute_analysis()')
         self.dataComputed = True
+        self.notify_done(f'Analysis done start:{start.strftime("%Y %m %d, %H:%M:%S")} end:{end.strftime("%Y %m %d, %H:%M:%S")}')        
+        logging.debug(f'{self._timeStamp()} Done compute_analysis()')
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
         assert self.dataComputed, 'Cannot plot data when data has not been computed'
