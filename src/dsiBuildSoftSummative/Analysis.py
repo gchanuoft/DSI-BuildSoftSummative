@@ -59,7 +59,7 @@ class Analysis():
         CONFIG_PATHS = ['configs/system_config.yml', 'configs/user_config.yml']
 
         # add the analysis config to the list of paths to load
-        paths = CONFIG_PATHS + [analysis_config]
+        paths = [analysis_config] + CONFIG_PATHS
 
         # initialize empty dictionary to hold the configuration
         config = {}
@@ -92,6 +92,7 @@ class Analysis():
         
         # Only take the config values we want
         logging.info(f'{self._timeStamp()} Analysis init() config values')
+        logging.info(f'{self._timeStamp()} Analysis init() config values {config}')
         self.apiKey = config['api_key']
         self.ntfyTopic = config['ntfyTopic']
         logging.info(f'{self._timeStamp()} Notification will be sent to: {self.NTFY_URL}{self.ntfyTopic}')
