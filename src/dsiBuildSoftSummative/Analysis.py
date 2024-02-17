@@ -89,7 +89,8 @@ class Analysis():
         logging.debug(f'{self._timeStamp()} Done compute_analysis()')
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
-        ''' Analyze and plot data
+        ''' 
+        Analyze and plot data
 
         Generates a plot, display it to screen, and save it to the path in the parameter `save_path`, or 
         the path from the configuration file if not specified.
