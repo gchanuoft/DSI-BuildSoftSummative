@@ -1,4 +1,4 @@
-output_paths: ['my_plot', 'figure']
+output_paths: ['test']
 plot_config:
   color: orange
   title: Summary of NASA Subcategories

@@ -70,10 +70,10 @@ class Analysis():
                     this_config = yaml.safe_load(f)                    
                     config.update(this_config)   
             except FileNotFoundError as e:    
-                e.add_note(f'{self._timeStamp()} The file {path} cannot be found')
+                e.add_note(f'The file {path} cannot be found')
                 raise e
             except Exception as e:
-                e.add_note(f'{self._timeStamp()} Error while loading configuration files')
+                e.add_note(f'Error while loading configuration files')
                 raise e             
 
         # Init logging
@@ -87,7 +87,7 @@ class Analysis():
                 handlers=[logging.StreamHandler(),
                           logging.FileHandler(logFileName)])
         except Exception as e:
-            e.add_note(f'{self._timeStamp()} Error initializing log file')
+            e.add_note(f'Error initializing log file')
             raise e
         
         # Only take the config values we want
@@ -132,7 +132,7 @@ class Analysis():
             self.rawJsonData = requests.get(url=f'{self.DATA_URL}?api_key={self.apiKey}').json()
         except Exception as e:
             logging.error(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}', exc_info=e)
-            e.add_note(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
+            e.add_note(f'Error Loading Data from API: {self.DATA_URL}')
             raise e   
         logging.debug(f'{self._timeStamp()} Done loading data from Data API: {self.DATA_URL}')
 
@@ -226,9 +226,13 @@ class Analysis():
                 fullFileName = f'{path}/{self.OUT_PUT_FILE_NAME}'
                 logging.info(f'{self._timeStamp()} Creating image file {fullFileName}')
                 fig.savefig(fullFileName, bbox_inches='tight')
+            except FileNotFoundError as e:
+                logging.error(f'{self._timeStamp()} File path does not exist, full file path: {fullFileName}', exc_info=e)
+                e.add_note(f'File path does not exist, full file path: {fullFileName}')
+                raise e   
             except Exception as e:
                 logging.error(f'{self._timeStamp()} Error saving file {fullFileName}', exc_info=e)
-                e.add_note(f'{self._timeStamp()} Error saving file {fullFileName}')
+                e.add_note(f'Error saving file {fullFileName}')
                 raise e   
         logging.debug(f'{self._timeStamp()} Done saving plot: {save_path}')
 
@@ -258,7 +262,7 @@ class Analysis():
                           data=message.encode(encoding='utf-8'))
         except Exception as e:
             logging.error(f'{self._timeStamp()} Error calling ntfy', exc_info=e)
-            e.add_note(f'{self._timeStamp()} Error calling ntfy')
+            e.add_note(f'Error calling ntfy')
             raise e   
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
 
