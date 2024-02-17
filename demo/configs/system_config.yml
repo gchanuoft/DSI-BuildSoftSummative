@@ -1,11 +1,11 @@
 api_key: DEMO_KEY
 ntfyTopic: dsi_c2_brs
 plot_config:
-  color: red
+  color: blue
   title: Summary of Categories
   xlabel: Categories
   ylabel: Total
-  sizeH: 2
-  sizeW: 4
+  sizeH: 5
+  sizeW: 6
 output_paths: ['figure']
 verbose_log: FALSE

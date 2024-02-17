@@ -1,7 +1,7 @@
 api_key: DEMO_KEY
 ntfyTopic: dsiBuildSoftSummative
 plot_config:
-  color: Blue
+  color: red
   title: Summary of NASA Subcategories
   xlabel: Subcategories
   ylabel: Total Studies
