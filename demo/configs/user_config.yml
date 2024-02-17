@@ -1,2 +1,7 @@
 api_key: DEMO_KEY
 verbose_log: FALSE
+plot_config:
+  title: Summary of Studies Categories
+  xlabel: Studies Categories Categories
+  ylabel: Total Count
+output_path: ['plot']

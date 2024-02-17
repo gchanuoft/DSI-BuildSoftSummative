@@ -1,2 +1,7 @@
 api_key: DEMO_KEY
 verbose_log: TRUE
+plot_config:
+  title: Summary of NASA studies categlories
+  xlabel: NASA Studies Categories
+  ylabel: Persons
+output_path: ['my_plot']

@@ -13,8 +13,6 @@ class Analysis():
     INIT_LOG_FILE_NAME_PREFIX: Final = 'dsiBuildSoftSummative'
     DATA_URL: Final = f'https://osdr.nasa.gov/osdr/data/osd/files/{STUDIY_ID}'
     rawJsonData = None
-    studiesByOrg = None
-    studiesByCat = None
     studiesBySubCat = None
     dataComputed = False
 
@@ -75,11 +73,10 @@ class Analysis():
         start = datetime.datetime.now()
         logging.info(f'{self._timeStamp()} Analysis Start time {start.timestamp()}')
 
-        # create data frame from json
+        # create data frame and analysis data from json
         studiesPD = pd.DataFrame(self.rawJsonData['studies'][f'OSD-{self.STUDIY_ID}']['study_files'])
-        self.studiesByOrg = studiesPD.groupby('organization').agg(Num_of_Studies_Per_Organization=('file_name', 'count'))
-        self.studiesByCat = studiesPD.groupby('category').agg(Num_of_Studies_Per_Categlory=('file_name', 'count'))
         self.studiesBySubCat = studiesPD.groupby('subcategory').agg(Num_of_Studies_Per_Subcateglory=('file_name', 'count'))
+        self.studiesBySubCat= self.studiesBySubCat.iloc[1: , :]
 
         # Log analysis end time
         end = datetime.datetime.now()
@@ -92,9 +89,46 @@ class Analysis():
         logging.debug(f'{self._timeStamp()} Done compute_analysis()')
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
+        ''' Analyze and plot data
+
+        Generates a plot, display it to screen, and save it to the path in the parameter `save_path`, or 
+        the path from the configuration file if not specified.
+
+        Parameters
+        ----------
+        save_path : str, optional
+            Save path for the generated figure
+
+        Returns
+        -------
+        fig : matplotlib.Figure
+
+        '''
         assert self.dataComputed, 'Cannot plot data when data has not been computed'
         logging.debug(f'{self._timeStamp()} Starting saving plot: {save_path}')
+
+        fig, ax = plt.subplots()
+
+        ax.set_title(self.config['plot_config']['title'])
+        ax.set_xlabel(self.config['plot_config']['xlabel'])
+        ax.set_ylabel(self.config['plot_config']['ylabel'])
+        ax.set_axisbelow(True)
+        ax.grid(alpha=0.3)
+
+        subCat = ax.scatter(self.studiesBySubCat.index, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'])
+    
+        ax.legend([subCat],
+                  ['Sub Categories'],
+                  bbox_to_anchor=(1, 1),
+                  loc='upper left')
+        
+        pngFileName = 'stub.png'
+
+        logging.info(f'{self._timeStamp()} Creating image file {pngFileName}')
+        fig.savefig(pngFileName, bbox_inches='tight')
         logging.debug(f'{self._timeStamp()} Done saving plot: {save_path}')
+
+        return fig
 
     def notify_done(self, message: str) -> None:
         assert self.dataComputed, 'Cannot send done message when data has not been computed'
