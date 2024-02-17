@@ -1,8 +1,10 @@
 api_key: DEMO_KEY
-verbose_log: FALSE
+ntfyTopic: dsiBuildSoftSummative
 plot_config:
+  color: blue
   title: Summary of NASA studies categlories
   xlabel: NASA Studies Categories
-  ylabel: Persons
+  ylabel: Number of Studies
+  size: 1
 output_paths: ['my_plot', 'figure']
-ntfyURL: https://ntfy.sh/dsiBuildSoftSummative
+verbose_log: FALSE

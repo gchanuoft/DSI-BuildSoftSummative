@@ -1,8 +1,10 @@
 api_key: DEMO_KEY
-verbose_log: FALSE
+ntfyTopic: dsi_c2_brs
 plot_config:
+  color: red
   title: Summary of Categories
   xlabel: Categories
   ylabel: Total
+  size: 1
 output_paths: ['figure']
-ntfyURL: https://ntfy.sh/dsi_c2_brs
+verbose_log: FALSE
