@@ -13,6 +13,9 @@ class Analysis():
     INIT_LOG_FILE_NAME_PREFIX: Final = 'dsiBuildSoftSummative'
     DATA_URL: Final = f'https://osdr.nasa.gov/osdr/data/osd/files/{STUDIY_ID}'
     rawJsonData = None
+    studiesByOrg = None
+    studiesByCat = None
+    studiesBySubCat = None
     dataComputed = False
 
     def __init__(self, analysis_config: str) -> None:
@@ -54,6 +57,8 @@ class Analysis():
 
     def load_data(self) -> None:
         logging.debug(f'{self._timeStamp()} Starting loading data from Data API: {self.DATA_URL}')
+
+        # Load data from NASA API
         try:
             self.rawJsonData = requests.get(url=f'{self.DATA_URL}?api_key={self.config['api_key']}').json()
         except Exception as e:
@@ -65,17 +70,23 @@ class Analysis():
     def compute_analysis(self) -> Any:
         assert self.rawJsonData != None, 'Cannot compute analysis when no data is loaded'
         
+        # Log the analysis start time
         logging.debug(f'{self._timeStamp()} Starting compute_analysis()')
         start = datetime.datetime.now()
         logging.info(f'{self._timeStamp()} Analysis Start time {start.timestamp()}')
 
         # create data frame from json
         studiesPD = pd.DataFrame(self.rawJsonData['studies'][f'OSD-{self.STUDIY_ID}']['study_files'])
-        
+        self.studiesByOrg = studiesPD.groupby('organization').agg(Num_of_Studies_Per_Organization=('file_name', 'count'))
+        self.studiesByCat = studiesPD.groupby('category').agg(Num_of_Studies_Per_Categlory=('file_name', 'count'))
+        self.studiesBySubCat = studiesPD.groupby('subcategory').agg(Num_of_Studies_Per_Subcateglory=('file_name', 'count'))
 
+        # Log analysis end time
         end = datetime.datetime.now()
         logging.info(f'{self._timeStamp()} Analysis end time {end.timestamp()}')
         logging.info(f'{self._timeStamp()} Analysis End time')
+
+        # Mark computation as done and send done message through ntfy
         self.dataComputed = True
         self.notify_done(f'Analysis done start:{start.strftime("%Y %m %d, %H:%M:%S")} end:{end.strftime("%Y %m %d, %H:%M:%S")}')        
         logging.debug(f'{self._timeStamp()} Done compute_analysis()')
