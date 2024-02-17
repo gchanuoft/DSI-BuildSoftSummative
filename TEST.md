@@ -6,8 +6,10 @@ Notification will be sent to the following when using the demo default config fi
 [https://ntfy.sh/dsiBuildSoftSummative](https://ntfy.sh/dsiBuildSoftSummative)
 
 ## Running Unit tests
-  In the **root** of the source code directory run ```pytest```.
-  Note:  the test config directory is located at **root** hence running the test command at **root**.
+  Important: The unit test needed to be run at the **root** folder of the source code directory. The unit test config directory is located at the **root** directory hence unit test needed to be run at **root**.
+
+  To run unit test, at the root directory run the following command:\
+  ```pytest -v```
 
 ## Demos:
 
