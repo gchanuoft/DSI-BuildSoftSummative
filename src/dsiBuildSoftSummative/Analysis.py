@@ -106,7 +106,7 @@ class Analysis():
             logging.info(f'{self._timeStamp()} Plots default save paths: {self.outputPaths}')
         except Exception as e:
             logging.error(f'{self._timeStamp()} Malformed config file(s) {paths}')
-            raise ValueError('Malformed config file(s) {paths}')
+            raise ValueError(f'Malformed config file(s) {paths}')
         
     def load_data(self) -> None:
         ''' 
