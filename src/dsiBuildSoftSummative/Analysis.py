@@ -9,6 +9,8 @@ import logging
 class Analysis():
 
     INIT_LOG_FILE_NAME_PREFIX: Final = 'dsiBuildSoftSummative'
+    DATA_URL: Final = 'https://osdr.nasa.gov/osdr/data/osd/files/201'
+    rawData = None
 
     def __init__(self, analysis_config: str) -> None:
 
@@ -48,7 +50,11 @@ class Analysis():
             raise e   
 
     def load_data(self) -> None:
-        print(self.config['verbose_log'])
+        try:
+            self.rawData = requests.get(url=f'{self.DATA_URL}?api_key={self.config['api_key']}')
+        except Exception as e:
+            e.add_note(f'Error Loading Data from API {self.DATA_URL}')
+            raise e   
 
     def compute_analysis(self) -> Any:
         pass
