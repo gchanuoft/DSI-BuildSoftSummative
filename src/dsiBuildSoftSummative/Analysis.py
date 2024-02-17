@@ -84,7 +84,7 @@ class Analysis():
             raise e   
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
 
-    def _timeStamp() -> str:
+    def _timeStamp(self) -> str:
         now = datetime.datetime.now()
         return now.strftime("%Y %m %d, %H:%M:%S")
         
