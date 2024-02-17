@@ -126,6 +126,7 @@ class Analysis():
         pngFileName = 'stub.png'
 
         logging.info(f'{self._timeStamp()} Creating image file {pngFileName}')
+        fig.autofmt_xdate(rotation=45)
         fig.savefig(pngFileName, bbox_inches='tight')
         logging.debug(f'{self._timeStamp()} Done saving plot: {save_path}')
 
