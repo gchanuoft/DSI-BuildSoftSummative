@@ -105,6 +105,22 @@ class Analysis():
         logging.info(f'{self._timeStamp()} Plots will be save to: {self.outputPaths}')
         
     def load_data(self) -> None:
+        ''' 
+        Retrieve data from the NASA Open API
+
+        This function makes an HTTPS request to the NASA API and retrieves OSD Studies data. The data is
+        stored in the Analysis object.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        '''
+
         logging.debug(f'{self._timeStamp()} Starting loading data from Data API: {self.DATA_URL}')
 
         # Load data from NASA API
@@ -117,6 +133,21 @@ class Analysis():
         logging.debug(f'{self._timeStamp()} Done loading data from Data API: {self.DATA_URL}')
 
     def compute_analysis(self) -> Any:
+        '''
+        Analyze previously-loaded data.
+
+        This function sum the total of each OSD studyies subcateglory
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        analysis_output : Dataframe with the sum of each subcateglory 
+
+        '''
+
         assert self.rawJsonData != None, 'Cannot compute analysis when no data is loaded'
         
         # Log the analysis start time
@@ -126,8 +157,9 @@ class Analysis():
 
         # create data frame and analysis data from json
         studiesPD = pd.DataFrame(self.rawJsonData['studies'][f'OSD-{self.STUDIY_ID}']['study_files'])
-        self.studiesBySubCat = studiesPD.groupby('subcategory').agg(Num_of_Studies_Per_Subcateglory=('file_name', 'count'))
-        self.studiesBySubCat= self.studiesBySubCat.iloc[1: , :]
+        analysis_output = studiesPD.groupby('subcategory').agg(Num_of_Studies_Per_Subcateglory=('file_name', 'count'))
+        analysis_output = self.studiesBySubCat.iloc[1: , :]
+        self.studiesBySubCat = analysis_output
 
         # Log analysis end time
         end = datetime.datetime.now()
@@ -137,6 +169,8 @@ class Analysis():
         self.dataComputed = True
         self.notify_done(f'Analysis done start: - {start.strftime("%Y %m %d, %H:%M:%S")} | end: - {end.strftime("%Y %m %d, %H:%M:%S")}')        
         logging.debug(f'{self._timeStamp()} Done compute_analysis()')
+
+        return analysis_output
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
         ''' 
@@ -155,6 +189,7 @@ class Analysis():
         fig : matplotlib.Figure
 
         '''
+
         assert self.dataComputed, 'Cannot plot data when data has not been computed'
         logging.debug(f'{self._timeStamp()} Starting saving plots')
 
@@ -196,6 +231,22 @@ class Analysis():
         return fig
 
     def notify_done(self, message: str) -> None:
+        ''' 
+        Notify the user that analysis is complete.
+
+        Send a notification to the user through the ntfy.sh webpush service.
+
+        Parameters
+        ----------
+        message : str
+            Text of the notification to send
+
+        Returns
+        -------
+        None
+
+        '''
+
         assert self.dataComputed, 'Cannot send done message when data has not been computed'
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
         try:
@@ -208,6 +259,19 @@ class Analysis():
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
 
     def _timeStamp(self) -> str:
+        ''' 
+        Create a string that represent the current time in "%Y %m %d, %H:%M:%S" format
+
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        timeStr : str
+
+        '''
         now = datetime.datetime.now()
-        return now.strftime("%Y %m %d, %H:%M:%S")
+        timeStr = now.strftime("%Y %m %d, %H:%M:%S")
+        return timeStr
         

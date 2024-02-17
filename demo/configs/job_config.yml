@@ -1,3 +1,10 @@
 output_paths: ['my_plot', 'figure']
+plot_config:
+  color: orange
+  title: Summary of NASA Subcategories
+  xlabel: Subcategories
+  ylabel: Total Number of Studies
+  sizeH: 5
+  sizeW: 6
 verbose_log: FALSE
 
