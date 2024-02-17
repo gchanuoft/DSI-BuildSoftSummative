@@ -5,4 +5,4 @@ plot_config:
   xlabel: Categories
   ylabel: Total
 output_paths: ['figure']
-ntfy: https://ntfy.sh/dsi_c2_brs
+ntfyURL: https://ntfy.sh/dsi_c2_brs

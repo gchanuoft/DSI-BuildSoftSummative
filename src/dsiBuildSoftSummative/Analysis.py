@@ -67,6 +67,7 @@ class Analysis():
         self.plotYLabel = config['plot_config']['ylabel']
         self.outputPaths = config['output_paths']
         logging.info(f'{self._timeStamp()} Plots will be save to: {self.outputPaths}')
+        self.ntfyURL = config['ntfyURL']
         logging.info(f'{self._timeStamp()} Notification will be sent to: {self.ntfyURL}')
         
 
