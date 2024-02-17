@@ -70,9 +70,6 @@ class Analysis():
         self.ntfyURL = config['ntfyURL']
         logging.info(f'{self._timeStamp()} Notification will be sent to: {self.ntfyURL}')
         
-
-
-
     def load_data(self) -> None:
         logging.debug(f'{self._timeStamp()} Starting loading data from Data API: {self.DATA_URL}')
 
@@ -125,12 +122,12 @@ class Analysis():
 
         '''
         assert self.dataComputed, 'Cannot plot data when data has not been computed'
-        logging.debug(f'{self._timeStamp()} Starting saving plot: {save_path}')
+        logging.debug(f'{self._timeStamp()} Starting saving plots')
 
         if save_path == None:
-            plotOutputpaths = save_path
-        else:
             plotOutputpaths = self.outputPaths
+        else:
+            plotOutputpaths = save_path
 
         fig, ax = plt.subplots()
 
