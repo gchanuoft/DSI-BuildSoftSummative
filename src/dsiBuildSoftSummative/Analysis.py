@@ -91,18 +91,22 @@ class Analysis():
             raise e
         
         # Only take the config values we want
-        logging.info(f'{self._timeStamp()} Analysis init() config values')
-        self.apiKey = config['api_key']
-        self.ntfyTopic = config['ntfyTopic']
-        logging.info(f'{self._timeStamp()} Notification will be sent to: {self.NTFY_URL}{self.ntfyTopic}')
-        self.plotColor = config['plot_config']['color']
-        self.plotTitle = config['plot_config']['title']
-        self.plotXLabel = config['plot_config']['xlabel']
-        self.plotYLabel = config['plot_config']['ylabel']
-        self.plotSizeH = config['plot_config']['sizeH']
-        self.plotSizeW = config['plot_config']['sizeW']
-        self.outputPaths = config['output_paths']
-        logging.info(f'{self._timeStamp()} Plots default save paths: {self.outputPaths}')
+        try:
+            logging.info(f'{self._timeStamp()} Analysis init() config values')
+            self.apiKey = config['api_key']
+            self.ntfyTopic = config['ntfyTopic']
+            logging.info(f'{self._timeStamp()} Notification will be sent to: {self.NTFY_URL}{self.ntfyTopic}')
+            self.plotColor = config['plot_config']['color']
+            self.plotTitle = config['plot_config']['title']
+            self.plotXLabel = config['plot_config']['xlabel']
+            self.plotYLabel = config['plot_config']['ylabel']
+            self.plotSizeH = config['plot_config']['sizeH']
+            self.plotSizeW = config['plot_config']['sizeW']
+            self.outputPaths = config['output_paths']
+            logging.info(f'{self._timeStamp()} Plots default save paths: {self.outputPaths}')
+        except Exception as e:
+            logging.error(f'{self._timeStamp()} Malformed config file(s) {paths}')
+            raise ValueError('Malformed config file(s) {paths}')
         
     def load_data(self) -> None:
         ''' 

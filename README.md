@@ -20,3 +20,7 @@ A **demo** folder is located within the package source code with sample configur
   3. Install the package\
   ```pip install git+https://github.com/gchanuoft/dsiBuildSoftSummative```
 
+  ## Running Unit tests
+  In the **root** of the source code directory run ```pytest```.
+  Note:  the test config directory is located at **root** hence running the test command at **root**.
+

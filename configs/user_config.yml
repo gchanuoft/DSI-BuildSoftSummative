@@ -1,0 +1,11 @@
+api_key: DEMO_KEY
+ntfyTopic: dsiBuildSoftSummative
+plot_config:
+  color: blue
+  title: Summary of Subcategories
+  xlabel: Subcategories
+  ylabel: Total Studies
+  sizeH: 5
+  sizeW: 6
+output_paths: ['plot']
+verbose_log: FALSE
