@@ -158,7 +158,7 @@ class Analysis():
         # create data frame and analysis data from json
         studiesPD = pd.DataFrame(self.rawJsonData['studies'][f'OSD-{self.STUDIY_ID}']['study_files'])
         analysis_output = studiesPD.groupby('subcategory').agg(Num_of_Studies_Per_Subcateglory=('file_name', 'count'))
-        analysis_output = self.studiesBySubCat.iloc[1: , :]
+        analysis_output = analysis_output.iloc[1: , :]
         self.studiesBySubCat = analysis_output
 
         # Log analysis end time
