@@ -12,6 +12,8 @@ Notification will be sent to the following when using the demo default config fi
 
 ## Demos:
 
+**Import: The demo can only be run after the module is installed using the steps specificed in the "Installation Steps" section of README.md(https://github.com/gchanuoft/dsiBuildSoftSummative/blob/main/README.md)**
+
 To run the demos, first navigate to the **demo** directory in the source code package
 
 In the demo folder there are the following folders:
