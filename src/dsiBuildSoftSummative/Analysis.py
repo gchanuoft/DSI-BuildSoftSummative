@@ -123,7 +123,7 @@ class Analysis():
                   loc='upper left')
         
         for i in range(len(self.studiesBySubCat.index)):
-            ax.text(i, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'][i], self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'][i], ha = 'center')
+            ax.text(i, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], ha = 'center')
 
         pngFileName = 'stub.png'
 
