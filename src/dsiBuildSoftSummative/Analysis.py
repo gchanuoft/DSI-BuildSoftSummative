@@ -102,7 +102,7 @@ class Analysis():
         self.plotSizeH = config['plot_config']['sizeH']
         self.plotSizeW = config['plot_config']['sizeW']
         self.outputPaths = config['output_paths']
-        logging.info(f'{self._timeStamp()} Plots will be save to: {self.outputPaths}')
+        logging.info(f'{self._timeStamp()} Plots default save paths: {self.outputPaths}')
         
     def load_data(self) -> None:
         ''' 
