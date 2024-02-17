@@ -4,5 +4,5 @@ plot_config:
   title: Summary of NASA studies categlories
   xlabel: NASA Studies Categories
   ylabel: Persons
-output_paths: ['my_plot']
+output_paths: ['my_plot', 'figure']
 ntfyURL: https://ntfy.sh/dsiBuildSoftSummative
