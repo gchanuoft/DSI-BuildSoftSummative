@@ -15,12 +15,8 @@ A **demo** folder is located within the package source code with sample configur
   ```conda create --name <my-env>```    
   2. Activate the new conda envrionment\
   ```conda activate <my-env>``` 
-  4. Install pip\
+  3. Install pip\
   ```conda install pip```
-  3. Install the package\
+  4. Install the package\
   ```pip install git+https://github.com/gchanuoft/dsiBuildSoftSummative```
-
-  ## Running Unit tests
-  In the **root** of the source code directory run ```pytest```.
-  Note:  the test config directory is located at **root** hence running the test command at **root**.
 
