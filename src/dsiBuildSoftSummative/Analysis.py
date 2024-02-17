@@ -77,7 +77,7 @@ class Analysis():
         try:
             self.rawJsonData = requests.get(url=f'{self.DATA_URL}?api_key={self.apiKey}').json()
         except Exception as e:
-            logging.error(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
+            logging.error(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}'exc_info=e)
             e.add_note(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
             raise e   
         logging.debug(f'{self._timeStamp()} Done loading data from Data API: {self.DATA_URL}')
@@ -148,9 +148,14 @@ class Analysis():
 
         fig.autofmt_xdate(rotation=45)
         for path in plotOutputpaths:
-            fullFileName = f'{path}/{self.OUT_PUT_FILE_NAME}'
-            logging.info(f'{self._timeStamp()} Creating image file {fullFileName}')
-            fig.savefig(fullFileName, bbox_inches='tight')
+            try:
+                fullFileName = f'{path}/{self.OUT_PUT_FILE_NAME}'
+                logging.info(f'{self._timeStamp()} Creating image file {fullFileName}')
+                fig.savefig(fullFileName, bbox_inches='tight')
+            except Exception as e:
+                logging.error(f'{self._timeStamp()} Error saving file {fullFileName}', exc_info=e)
+                e.add_note(f'{self._timeStamp()} Error saving file {fullFileName}')
+                raise e   
         logging.debug(f'{self._timeStamp()} Done saving plot: {save_path}')
 
         return fig
@@ -162,7 +167,7 @@ class Analysis():
             requests.post(self.ntfyURL,
                           data=message.encode(encoding='utf-8'))
         except Exception as e:
-            logging.error(f'{self._timeStamp()} Error calling ntfy')
+            logging.error(f'{self._timeStamp()} Error calling ntfy', exc_info=e)
             e.add_note(f'{self._timeStamp()} Error calling ntfy')
             raise e   
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
