@@ -88,7 +88,7 @@ class Analysis():
 
         # Mark computation as done and send done message through ntfy
         self.dataComputed = True
-        self.notify_done(f'Analysis done start:{start.strftime("%Y %m %d, %H:%M:%S")} end:{end.strftime("%Y %m %d, %H:%M:%S")}')        
+        self.notify_done(f'Analysis done start: - {start.strftime("%Y %m %d, %H:%M:%S")} | end: - {end.strftime("%Y %m %d, %H:%M:%S")}')        
         logging.debug(f'{self._timeStamp()} Done compute_analysis()')
 
     def plot_data(self, save_path: Optional[str] = None) -> plt.Figure:
