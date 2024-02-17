@@ -1,5 +1,6 @@
 from typing import Any, Optional, Final
 import matplotlib.pyplot as plt
+import pandas as pd
 import yaml
 import requests
 import datetime
@@ -8,9 +9,10 @@ import logging
 
 class Analysis():
 
+    STUDIY_ID: Final = 201
     INIT_LOG_FILE_NAME_PREFIX: Final = 'dsiBuildSoftSummative'
-    DATA_URL: Final = 'https://osdr.nasa.gov/osdr/data/osd/files/201'
-    rawData = None
+    DATA_URL: Final = f'https://osdr.nasa.gov/osdr/data/osd/files/{STUDIY_ID}'
+    rawJsonData = None
     dataComputed = False
 
     def __init__(self, analysis_config: str) -> None:
@@ -53,7 +55,7 @@ class Analysis():
     def load_data(self) -> None:
         logging.debug(f'{self._timeStamp()} Starting loading data from Data API: {self.DATA_URL}')
         try:
-            self.rawData = requests.get(url=f'{self.DATA_URL}?api_key={self.config['api_key']}')
+            self.rawJsonData = requests.get(url=f'{self.DATA_URL}?api_key={self.config['api_key']}').json()
         except Exception as e:
             logging.error(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
             e.add_note(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
@@ -61,10 +63,16 @@ class Analysis():
         logging.debug(f'{self._timeStamp()} Done loading data from Data API: {self.DATA_URL}')
 
     def compute_analysis(self) -> Any:
-        assert self.rawData != None, 'Cannot compute analysis when no data is loaded'
+        assert self.rawJsonData != None, 'Cannot compute analysis when no data is loaded'
+        
         logging.debug(f'{self._timeStamp()} Starting compute_analysis()')
         start = datetime.datetime.now()
         logging.info(f'{self._timeStamp()} Analysis Start time {start.timestamp()}')
+
+        # create data frame from json
+        studiesPD = pd.DataFrame(self.rawJsonData['studies'][f'OSD-{self.STUDIY_ID}']['study_files'])
+        
+
         end = datetime.datetime.now()
         logging.info(f'{self._timeStamp()} Analysis end time {end.timestamp()}')
         logging.info(f'{self._timeStamp()} Analysis End time')
