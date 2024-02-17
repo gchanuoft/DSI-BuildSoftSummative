@@ -77,7 +77,7 @@ class Analysis():
         try:
             self.rawJsonData = requests.get(url=f'{self.DATA_URL}?api_key={self.apiKey}').json()
         except Exception as e:
-            logging.error(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}'exc_info=e)
+            logging.error(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}', exc_info=e)
             e.add_note(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
             raise e   
         logging.debug(f'{self._timeStamp()} Done loading data from Data API: {self.DATA_URL}')
