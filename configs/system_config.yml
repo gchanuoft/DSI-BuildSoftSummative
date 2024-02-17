@@ -7,5 +7,5 @@ plot_config:
   ylabel: Total
   sizeH: 5
   sizeW: 6
-output_paths: ['figure']
+output_paths: ['test']
 verbose_log: FALSE
