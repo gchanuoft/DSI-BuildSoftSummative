@@ -26,7 +26,6 @@ class Analysis():
     plotSize = None
     outputPaths = None
     
-
     def __init__(self, analysis_config: str) -> None:
         ''' 
         Load config into an Analysis object
@@ -94,7 +93,7 @@ class Analysis():
         logging.info(f'{self._timeStamp()} Analysis init() config values')
         self.apiKey = config['api_key']
         self.ntfyTopic = config['ntfyTopic']
-        logging.info(f'{self._timeStamp()} Notification will be sent to: {self.ntfyURL}')
+        logging.info(f'{self._timeStamp()} Notification will be sent to: {self.NTFY_URL}{self.ntfyTopic}')
         self.plotColor = config['plot_config']['color']
         self.plotTitle = config['plot_config']['title']
         self.plotXLabel = config['plot_config']['xlabel']
@@ -199,7 +198,7 @@ class Analysis():
         assert self.dataComputed, 'Cannot send done message when data has not been computed'
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
         try:
-            requests.post(f'{self.ntfyURL}{self.ntfyTopic}',
+            requests.post(f'{self.NTFY_URL}{self.ntfyTopic}',
                           data=message.encode(encoding='utf-8'))
         except Exception as e:
             logging.error(f'{self._timeStamp()} Error calling ntfy', exc_info=e)
