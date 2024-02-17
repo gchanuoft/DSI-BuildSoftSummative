@@ -5,4 +5,4 @@ plot_config:
   xlabel: Studies Categories Categories
   ylabel: Total Count
 output_paths: ['plot']
-ntfy: https://ntfy.sh/dsiBuildSoftSummative
+ntfyURL: https://ntfy.sh/dsiBuildSoftSummative

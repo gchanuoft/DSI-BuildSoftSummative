@@ -5,4 +5,4 @@ plot_config:
   xlabel: NASA Studies Categories
   ylabel: Persons
 output_paths: ['my_plot']
-ntfy: https://ntfy.sh/dsiBuildSoftSummative
+ntfyURL: https://ntfy.sh/dsiBuildSoftSummative
