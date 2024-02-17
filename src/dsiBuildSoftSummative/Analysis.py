@@ -12,9 +12,16 @@ class Analysis():
     STUDIY_ID: Final = 201
     INIT_LOG_FILE_NAME_PREFIX: Final = 'dsiBuildSoftSummative'
     DATA_URL: Final = f'https://osdr.nasa.gov/osdr/data/osd/files/{STUDIY_ID}'
+    OUT_PUT_FILE_NAME: Final = 'SubCat.png'
     rawJsonData = None
     studiesBySubCat = None
     dataComputed = False
+    apiKey = None
+    plotTitle = None
+    plotXLabel = None
+    plotYLabel = None
+    outputPaths = None
+    ntfyURL = None
 
     def __init__(self, analysis_config: str) -> None:
 
@@ -37,7 +44,6 @@ class Analysis():
             except Exception as e:
                 e.add_note(f'{self._timeStamp()} Error while loading configuration files')
                 raise e             
-        self.config = config
 
         # Init logging
         try:
@@ -51,14 +57,27 @@ class Analysis():
                           logging.FileHandler(logFileName)])
         except Exception as e:
             e.add_note(f'{self._timeStamp()} Error initializing log file')
-            raise e   
+            raise e
+        
+        # Only take the config values we want
+        logging.info(f'{self._timeStamp()} Analysis init() config values')
+        self.apiKey = config['api_key']
+        self.plotTitle = config['plot_config']['title']
+        self.plotXLabel = config['plot_config']['xlabel']
+        self.plotYLabel = config['plot_config']['ylabel']
+        self.outputPaths = config['output_paths']
+        logging.info(f'{self._timeStamp()} Plots will be save to: {self.outputPaths}')
+        logging.info(f'{self._timeStamp()} Notification will be sent to: {self.ntfyURL}')
+        
+
+
 
     def load_data(self) -> None:
         logging.debug(f'{self._timeStamp()} Starting loading data from Data API: {self.DATA_URL}')
 
         # Load data from NASA API
         try:
-            self.rawJsonData = requests.get(url=f'{self.DATA_URL}?api_key={self.config['api_key']}').json()
+            self.rawJsonData = requests.get(url=f'{self.DATA_URL}?api_key={self.apiKey}').json()
         except Exception as e:
             logging.error(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
             e.add_note(f'{self._timeStamp()} Error Loading Data from API: {self.DATA_URL}')
@@ -80,8 +99,7 @@ class Analysis():
 
         # Log analysis end time
         end = datetime.datetime.now()
-        logging.info(f'{self._timeStamp()} Analysis end time {end.timestamp()}')
-        logging.info(f'{self._timeStamp()} Analysis End time')
+        logging.info(f'{self._timeStamp()} Analysis End time {end.timestamp()}')
 
         # Mark computation as done and send done message through ntfy
         self.dataComputed = True
@@ -108,11 +126,16 @@ class Analysis():
         assert self.dataComputed, 'Cannot plot data when data has not been computed'
         logging.debug(f'{self._timeStamp()} Starting saving plot: {save_path}')
 
+        if save_path == None:
+            plotOutputpaths = save_path
+        else:
+            plotOutputpaths = self.outputPaths
+
         fig, ax = plt.subplots()
 
-        ax.set_title(self.config['plot_config']['title'])
-        ax.set_xlabel(self.config['plot_config']['xlabel'])
-        ax.set_ylabel(self.config['plot_config']['ylabel'])
+        ax.set_title(self.plotTitle)
+        ax.set_xlabel(self.plotXLabel)
+        ax.set_ylabel(self.plotYLabel)
         ax.set_axisbelow(True)
         ax.grid(alpha=0.3)
         subCat = ax.bar(self.studiesBySubCat.index, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'])
@@ -125,11 +148,11 @@ class Analysis():
         for i in range(len(self.studiesBySubCat.index)):
             ax.text(i, self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], self.studiesBySubCat['Num_of_Studies_Per_Subcateglory'].iloc[i], ha = 'center')
 
-        pngFileName = 'stub.png'
-
-        logging.info(f'{self._timeStamp()} Creating image file {pngFileName}')
         fig.autofmt_xdate(rotation=45)
-        fig.savefig(pngFileName, bbox_inches='tight')
+        for path in plotOutputpaths:
+            fullFileName = f'{path}/{self.OUT_PUT_FILE_NAME}'
+            logging.info(f'{self._timeStamp()} Creating image file {fullFileName}')
+            fig.savefig(fullFileName, bbox_inches='tight')
         logging.debug(f'{self._timeStamp()} Done saving plot: {save_path}')
 
         return fig
@@ -138,7 +161,7 @@ class Analysis():
         assert self.dataComputed, 'Cannot send done message when data has not been computed'
         logging.debug(f'{self._timeStamp()} Done sending message to ntfy')
         try:
-            requests.post("https://ntfy.sh/dsiBuildSoftSummative",
+            requests.post(self.ntfyURL,
                           data=message.encode(encoding='utf-8'))
         except Exception as e:
             logging.error(f'{self._timeStamp()} Error calling ntfy')
