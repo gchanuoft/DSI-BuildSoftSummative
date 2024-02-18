@@ -1,3 +1,0 @@
-plot_config:
-output_paths: ['my_plot', 'figure']
-verbose_log: FALSE

@@ -7,7 +7,7 @@ Notification will be sent to the following when using the demo default config fi
 
 ## Running Unit Tests:
   
-  To run unit tests, at the **src/dsiBuildSoftSummative** directory run the following command:\
+  In the **root** of the git repository folder run the following command.  Note: unit test confiture folder is located at **root**. Hence unit tests are run at **root**\  
   ```pytest -v```
 
 ## Demos:

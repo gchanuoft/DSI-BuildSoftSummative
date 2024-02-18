@@ -5,6 +5,6 @@ plot_config:
   ylabel: Total Number of Studies
   sizeH: 5
   sizeW: 6
-output_paths: ['test']
+output_paths: ['unit_test_png']
 verbose_log: FALSE
 
