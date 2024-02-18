@@ -7,8 +7,8 @@ Notification will be sent to the following when using the demo default config fi
 
 ## Running Unit Tests:
   
-  In the **root** of the git repository folder run the following command.  Note: unit test confiture folder is located at **root**. Hence unit tests are run at **root**\  
-  ```pytest -v```
+In the **root** of the git repository folder run the following command.  Note: unit test config folder is located at **root**. Hence unit tests are run at **root**\
+```pytest -v```
 
 ## Demos:
 

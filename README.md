@@ -25,5 +25,5 @@ A **demo** folder is located within the package source code with sample configur
   ```git clone https://github.com/gchanuoft/dsiBuildSoftSummative.git```
   2. Install pytest\
   ```pip install pytest```
-  3. In the **root** of the git repository folder run the following command.  Note: unit test confiture folder is located at **root**. Hence unit tests are run at **root**\
+  3. In the **root** of the git repository folder run the following command.  Note: unit test config folder is located at **root**. Hence unit tests are run at **root**\
   ```pytest -v```
