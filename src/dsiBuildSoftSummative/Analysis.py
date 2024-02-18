@@ -92,7 +92,7 @@ class Analysis():
         
         # Only take the config values we want
         try:
-            logging.info(f'{self._timeStamp()} Analysis init() config values')
+            logging.info(f'{self._timeStamp()} Analysis object start loading config values')
             self.apiKey = config['api_key']
             self.ntfyTopic = config['ntfyTopic']
             logging.info(f'{self._timeStamp()} Notification will be sent to: {self.NTFY_URL}{self.ntfyTopic}')
@@ -103,7 +103,8 @@ class Analysis():
             self.plotSizeH = config['plot_config']['sizeH']
             self.plotSizeW = config['plot_config']['sizeW']
             self.outputPaths = config['output_paths']
-            logging.info(f'{self._timeStamp()} Plots default save paths: {self.outputPaths}')
+            logging.info(f'{self._timeStamp()} Analysis object done loading config values')
+            logging.info(f'{self._timeStamp()} Plots default save paths: {self.outputPaths}')            
         except Exception as e:
             logging.error(f'{self._timeStamp()} Malformed config file(s) {paths}')
             raise ValueError(f'Malformed config file(s) {paths}')
