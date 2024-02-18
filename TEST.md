@@ -7,12 +7,12 @@ Notification will be sent to the following when using the demo default config fi
 
 ## Running Unit Tests:
   
-  To run unit test, at the **src/dsiBuildSoftSummative** directory run the following command:\
+  To run unit tests, at the **src/dsiBuildSoftSummative** directory run the following command:\
   ```pytest -v```
 
 ## Demos:
 
-**Import: The demo can only be run after the module is installed using the steps specificed in the "Installation Steps" section of README.md(https://github.com/gchanuoft/dsiBuildSoftSummative/blob/main/README.md)**
+**Important: The demos can only be run after the package is installed using the steps specificed in the "Installation Steps" section of [README.md](https://github.com/gchanuoft/dsiBuildSoftSummative/blob/main/README.md)**
 
 To run the demos, first navigate to the **demo** directory in the source code package
 
