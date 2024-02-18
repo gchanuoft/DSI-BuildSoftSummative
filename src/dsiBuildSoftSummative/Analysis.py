@@ -92,7 +92,7 @@ class Analysis():
         
         # Only take the config values we want
         try:
-            logging.info(f'{self._timeStamp()} Analysis init() config values')
+            logging.info(f'{self._timeStamp()} Analysis object loading config values')
             self.apiKey = config['api_key']
             self.ntfyTopic = config['ntfyTopic']
             logging.info(f'{self._timeStamp()} Notification will be sent to: {self.NTFY_URL}{self.ntfyTopic}')
